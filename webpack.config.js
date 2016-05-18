@@ -32,12 +32,14 @@ var config = {
   },
 
   entry: {
-    angular2: [
-      'zone.js/dist/zone-microtask',
-      'reflect-metadata',
-      'angular2/common',
-      'angular2/core',
-      'angular2/router'
+    common: [
+      'es6-shim',
+      'es6-promise',
+      'zone.js',
+      'es7-reflect-metadata',
+      '@angular/common',
+      '@angular/core',
+      '@angular/router-deprecated'
     ],
     'angular2-contentful': 'src',
     'angular2-contentful-demo': 'demo'
@@ -87,9 +89,8 @@ var config = {
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(true),
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'angular2',
-      minChunks: Infinity,
-      filename: 'angular2.js'
+      name: 'common',
+      minChunks: Infinity
     }),
     // static assets
     new CopyWebpackPlugin([{from: 'demo/favicon.ico', to: 'favicon.ico'}]),

@@ -1,6 +1,6 @@
 import 'rxjs/add/operator/map';
-import {Component, OnInit} from 'angular2/core';
-import {CanActivate, ROUTER_DIRECTIVES} from 'angular2/router';
+import {Component, OnInit} from '@angular/core';
+import {CanActivate, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
 import {CanSeeContentfulData} from '../app.tools';
 import {ContentfulIterableResponse, ContentfulCommon, ContentfulContentType} from '../../../../src/ng-contentful-types';
 import {ContentfulService} from '../../../../src/services/contentful.service';
@@ -16,7 +16,7 @@ import {ContentfulService} from '../../../../src/services/contentful.service';
     </div>
     <div>
       <ul>
-        <li *ngFor="#contentType of contentTypes">
+        <li *ngFor="let contentType of contentTypes">
           <a [routerLink]="['Entries', {contentType: contentType.sys.id }]">
             {{ contentType.name }}
           </a>

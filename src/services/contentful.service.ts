@@ -1,5 +1,5 @@
-import {Injectable} from 'angular2/core';
-import {Http, Response, RequestOptionsArgs, URLSearchParams, Headers} from 'angular2/http';
+import {Injectable} from '@angular/core';
+import {Http, Response, RequestOptionsArgs, URLSearchParams, Headers} from '@angular/http';
 import {Observable} from 'rxjs/Observable';
 import {Ng2ContentfulConfig} from '../ng2-contentful-config';
 

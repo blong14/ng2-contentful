@@ -1,6 +1,6 @@
 
 import {appInjector} from '../app-injector';
-import {Router} from 'angular2/router';
+import {Router} from '@angular/router-deprecated';
 import {CredentialsComponent} from './credentials/credentials.component';
 import {Ng2ContentfulConfig} from '../../../src/ng2-contentful-config';
 /**

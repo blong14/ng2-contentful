@@ -1,5 +1,5 @@
-import {Component, OnInit} from 'angular2/core';
-import {CanActivate, RouteParams} from 'angular2/router';
+import {Component, OnInit} from '@angular/core';
+import {CanActivate, RouteParams} from '@angular/router-deprecated';
 import {CanSeeContentfulData} from '../app.tools';
 import {ContentfulIterableResponse, ContentfulCommon} from '../../../../src/ng-contentful-types';
 import {ContentfulService} from '../../../../src/services/contentful.service';
@@ -13,7 +13,7 @@ import {ContentfulService} from '../../../../src/services/contentful.service';
     </div>
     <div>
       <ul>
-        <li *ngFor="#entry of entries">
+        <li *ngFor="let entry of entries">
            {{ entry.fields.title }}
         </li>
       </ul>
