@@ -1,5 +1,5 @@
-import {Component, OnInit} from 'angular2/core';
-import {Router} from 'angular2/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router-deprecated';
 import {ContentTypesComponent} from '../content-types/content-types.component';
 import {IContentfulConfig, Ng2ContentfulConfig} from '../../../../src/ng2-contentful-config';
 

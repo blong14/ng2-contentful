@@ -1,7 +1,9 @@
-import {provide, ComponentRef} from 'angular2/core';
-import {bootstrap} from 'angular2/platform/browser';
-import {HTTP_PROVIDERS} from 'angular2/http';
-import {ROUTER_PROVIDERS, LocationStrategy, HashLocationStrategy} from 'angular2/router';
+import {bootstrap} from '@angular/platform-browser-dynamic';
+import {provide, ComponentRef} from '@angular/core';
+import {HTTP_PROVIDERS} from '@angular/http';
+import {ROUTER_PROVIDERS} from '@angular/router-deprecated';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+
 
 const ENV_PROVIDERS: any[] = [];
 
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ...HTTP_PROVIDERS,
     ...ROUTER_PROVIDERS,
     provide(LocationStrategy, { useClass: HashLocationStrategy })
-  ]).then((appRef: ComponentRef ) => {
+  ]).then((appRef: ComponentRef<any> ) => {
     appInjector(appRef.injector);
   })
     .catch(err => console.error(err));

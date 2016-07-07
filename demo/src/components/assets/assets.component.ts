@@ -1,6 +1,6 @@
-import {Component, OnInit} from 'angular2/core';
+import {Component, OnInit} from '@angular/core';
 import {CanSeeContentfulData} from '../app.tools';
-import {CanActivate} from 'angular2/router';
+import {CanActivate} from '@angular/router-deprecated';
 import {ContentfulCommon, ContentfulAsset} from '../../../../src/ng-contentful-types';
 import {ContentfulService} from '../../../../src/services/contentful.service';
 
