@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonjs",
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "removeComments": false,
+    "noImplicitAny": true,
+    "declaration": true,
+    "noLib": false,
+    "listFiles": false,
+    "outDir": "dist/ng2-contentful"
+  },
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "./typings/browser.d.ts",
+    "./src/index.ts"
+  ]
+}
