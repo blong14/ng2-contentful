@@ -1,7 +1,3 @@
-/**
- *
- */
-
 export interface ContentfulSys {
   type: string;
   id: string;

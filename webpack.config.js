@@ -39,7 +39,7 @@ var config = {
       'es7-reflect-metadata',
       '@angular/common',
       '@angular/core',
-      '@angular/router-deprecated'
+      '@angular/router'
     ],
     'angular2-contentful': 'src',
     'angular2-contentful-demo': 'demo'

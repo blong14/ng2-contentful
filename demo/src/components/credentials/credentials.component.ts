@@ -1,8 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router-deprecated';
-import {ContentTypesComponent} from '../content-types/content-types.component';
-import {IContentfulConfig, Ng2ContentfulConfig} from '../../../../src/ng2-contentful-config';
-
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ContentTypesComponent } from '../content-types/content-types.component';
+import { IContentfulConfig, Ng2ContentfulConfig } from '../../../../src/ng2-contentful-config';
 
 @Component({
   styles: [<string> require('./credentials.scss')],
@@ -40,18 +39,20 @@ export class CredentialsComponent implements OnInit {
   private model: IContentfulConfig = {
     space: '', accessToken: ''
   };
+  private router: Router;
 
-  constructor(private _router: Router) {
+  public constructor(router: Router) {
+    this.router = router;
 
   }
 
-  ngOnInit(): any {
+  public ngOnInit(): any {
     if (Ng2ContentfulConfig.isConfigured) {
       this.model = Ng2ContentfulConfig.config;
     }
   }
 
-  saveConfig() {
+  public saveConfig() {
     if (!this.model || (!this.model.space.length || !this.model.accessToken.length)) {
       console.warn('credentials empty !');
       return;
@@ -62,7 +63,6 @@ export class CredentialsComponent implements OnInit {
       accessToken: this.model.accessToken,
       host: this.model.host
     };
-
-    this._router.navigate([ContentTypesComponent.RoutingName]);
+    this.router.navigate(['/content-types']);
   }
 }
