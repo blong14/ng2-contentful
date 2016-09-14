@@ -1,10 +1,8 @@
-/// <reference path="app.d.ts" />
-
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'ng2-contentful-demo',
-  styles: [<string> require('./app.scss')],
+  styles: [require('./app.scss') as string],
   template: `
     <header>
     <nav>
@@ -26,5 +24,5 @@ import { Component } from '@angular/core';
     <router-outlet></router-outlet>
   `
 })
-export class App {
+export class AppComponent {
 }

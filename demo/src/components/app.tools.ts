@@ -1,5 +1,4 @@
-import { Router, CanActivate, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
-import { CredentialsComponent } from './credentials/credentials.component';
+import { Router, CanActivate } from '@angular/router';
 import { Ng2ContentfulConfig } from '../../../src/ng2-contentful-config';
 import { Injectable } from '@angular/core';
 /**
@@ -8,14 +7,19 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class CanSeeContentfulData implements CanActivate {
-  public constructor(private router: Router) {
+  private router: Router;
+
+  public constructor(router: Router) {
+    this.router = router;
   }
 
-  public canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+  public canActivate(): boolean {
     if (!Ng2ContentfulConfig.isConfigured) {
-      this.router.navigate([CredentialsComponent.RoutingName]);
+      this.router.navigate(['/content-types']);
+
       return false;
     }
+
     return true;
   }
 

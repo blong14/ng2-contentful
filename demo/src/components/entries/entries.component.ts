@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-// import { RouteParams} from '@angular/router-deprecated';
+import { Response } from '@angular/http';
 import { ContentfulIterableResponse, ContentfulCommon } from '../../../../src/ng-contentful-types';
 import { ContentfulService } from '../../../../src/services/contentful.service';
 import { Router } from '@angular/router';
@@ -38,8 +38,8 @@ export class EntriesComponent implements OnInit {
       .getEntriesByType(contentType)
       .commit()
       .subscribe(
-        response => {
-          this.entries = (<ContentfulIterableResponse<ContentfulCommon<any>>> response.json()).items;
+        (response: Response) => {
+          this.entries = (response.json() as ContentfulIterableResponse<ContentfulCommon<any>>).items;
           console.log(this.entries);
         }
       );

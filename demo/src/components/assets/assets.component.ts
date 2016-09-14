@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {ContentfulCommon, ContentfulAsset} from '../../../../src/ng-contentful-types';
-import {ContentfulService} from '../../../../src/services/contentful.service';
-
+import { Component, OnInit } from '@angular/core';
+import { ContentfulCommon, ContentfulAsset } from '../../../../src/ng-contentful-types';
+import { ContentfulService } from '../../../../src/services/contentful.service';
+import { Response } from '@angular/http';
 
 @Component({
   template: `
@@ -21,24 +21,25 @@ import {ContentfulService} from '../../../../src/services/contentful.service';
   `
 })
 export class AssetsComponent implements OnInit {
-  static RoutingName = 'Assets';
+  public static RoutingName: string = 'Assets';
 
   private assets: ContentfulCommon<ContentfulAsset>[];
   private error: string;
-  private contentfulService: ContentfulService
-  constructor(contentfulService: ContentfulService) {
+  private contentfulService: ContentfulService;
+
+  public constructor(contentfulService: ContentfulService) {
     this.contentfulService = contentfulService;
   }
 
-  ngOnInit(): any {
+  public ngOnInit(): void {
     this.contentfulService.create()
       .getAssets()
       .commit()
       .subscribe(
-        response => {
-          this.assets = <ContentfulCommon<ContentfulAsset>[]> response.json().items;
+        (response: Response) => {
+          this.assets = response.json().items as ContentfulCommon<ContentfulAsset>[];
         },
-        error => {
+        (error: Response) => {
           this.error = JSON.stringify(error.json());
         }
       );
