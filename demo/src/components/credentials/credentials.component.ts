@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { ContentfulConfig, Ng2ContentfulConfig } from '../../../../src/ng2-contentful-config';
 
 @Component({
-  styles: [require('./credentials.scss') as string],
   template: `
     <h2>Credentials</h2>
     <div class="form">

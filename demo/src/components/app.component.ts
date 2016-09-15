@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'ng2-contentful-demo',
-  styles: [require('./app.scss') as string],
+  styles: [require('./app.component.css') as string],
   template: `
     <header>
     <nav>
