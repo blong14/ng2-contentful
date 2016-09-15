@@ -1,6 +1,3 @@
 {
-  "name": "ng2-contentful",
-  "globalDependencies": {
-    "es6-shim": "registry:dt/es6-shim#0.31.2+20160215162030"
-  }
+  "name": "ng2-contentful"
 }

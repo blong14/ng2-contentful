@@ -1,6 +1,6 @@
 {
   "name": "ng2-contentful",
-  "version": "0.0.8-2",
+  "version": "0.1.0",
   "description": "Contentful module for angular2",
   "scripts": {
     "install:typings": "./node_modules/.bin/typings install",
@@ -74,7 +74,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dydek/ng2-contentful.git"
+    "url": "git+https://github.com/valor-software/ng2-contentful.git"
   },
   "keywords": [
     "angular2",
@@ -83,7 +83,7 @@
   "author": "Michal Dydecki <michal.dydecki@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dydek/ng2-contentful/issues"
+    "url": "https://github.com/valor-software/ng2-contentful/issues"
   },
-  "homepage": "https://github.com/dydek/ng2-contentful#readme"
+  "homepage": "https://github.com/valor-software/ng2-contentful#readme"
 }
