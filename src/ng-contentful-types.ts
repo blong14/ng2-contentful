@@ -49,16 +49,3 @@ export interface ContentfulCommon<T> {
   fields: T;
   sys: ContentfulSys;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

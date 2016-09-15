@@ -6,7 +6,7 @@ import {
   ContentfulContentType
 } from '../../../../src/ng-contentful-types';
 import { ContentfulService } from '../../../../src/services/contentful.service';
-
+import { Response } from '@angular/http';
 
 @Component({
   template: `
@@ -26,9 +26,7 @@ import { ContentfulService } from '../../../../src/services/contentful.service';
   `
 })
 export class ContentTypesComponent implements OnInit {
-  static RoutingName = 'ContentTypes';
-
-  //noinspection JSMismatchedCollectionQueryUpdate
+  // noinspection JSMismatchedCollectionQueryUpdate
   private contentTypes: ContentfulCommon<ContentfulContentType>[];
   private error: string;
   private contentfulService: ContentfulService;
@@ -37,16 +35,16 @@ export class ContentTypesComponent implements OnInit {
     this.contentfulService = contentfulService;
   }
 
-  ngOnInit(): any {
+  public ngOnInit(): void {
     this.contentfulService
       .create()
       .getContentTypes()
       .commit()
       .subscribe(
-        response => {
-          this.contentTypes = (<ContentfulIterableResponse<ContentfulCommon<ContentfulContentType>>> response.json()).items;
+        (response: Response) => {
+          this.contentTypes = (response.json() as ContentfulIterableResponse<ContentfulCommon<ContentfulContentType>>).items;
         },
-        error => {
+        (error: Response) => {
           this.error = JSON.stringify(error.json());
         }
       );

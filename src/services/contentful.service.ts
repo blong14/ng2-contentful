@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Http, Response, RequestOptionsArgs, URLSearchParams, Headers} from '@angular/http';
-import {Observable} from 'rxjs/Observable';
-import {Ng2ContentfulConfig} from '../ng2-contentful-config';
+import { Injectable } from '@angular/core';
+import { Http, Response, RequestOptionsArgs, URLSearchParams, Headers } from '@angular/http';
+import { Observable } from 'rxjs/Observable';
+import { Ng2ContentfulConfig } from '../ng2-contentful-config';
 
 export interface SearchItem {
-  param: string,
-  value: string
+  param: string;
+  value: string;
 }
 
 /**
@@ -16,18 +16,18 @@ export class ContentfulRequest {
   private requestUrl: string;
   private queryParams: URLSearchParams = new URLSearchParams();
 
-  constructor(private _http: Http) {
+  public constructor(private _http: Http) {
     this.queryParams.set(
       'access_token', Ng2ContentfulConfig.config.accessToken
     );
   }
 
-  getContentTypes(): ContentfulRequest {
+  public getContentTypes(): ContentfulRequest {
     this.requestUrl = '/content_types/';
     return this;
   }
 
-  getContentType(contentTypeId: String): ContentfulRequest {
+  public getContentType(contentTypeId: String): ContentfulRequest {
     this.requestUrl = `/content_types/${contentTypeId}`;
     return this;
   }
@@ -36,7 +36,7 @@ export class ContentfulRequest {
    *
    * @returns {ContentfulRequest}
    */
-  getAssets(): ContentfulRequest {
+  public getAssets(): ContentfulRequest {
     this.requestUrl = '/assets/';
     return this;
   }
@@ -46,7 +46,7 @@ export class ContentfulRequest {
    * @param assetId
    * @returns {ContentfulRequest}
    */
-  getAsset(assetId: String): ContentfulRequest {
+  public getAsset(assetId: String): ContentfulRequest {
     this.requestUrl = `/assets/${assetId}`;
     return this;
   }
@@ -56,7 +56,7 @@ export class ContentfulRequest {
    * @param type - contentful content type identifier
    * @returns {ContentfulRequest}
    */
-  getEntriesByType(type: string): ContentfulRequest {
+  public getEntriesByType(type: string): ContentfulRequest {
     this.requestUrl = '/entries/';
     this.queryParams.set('content_type', type);
     return this;
@@ -68,7 +68,7 @@ export class ContentfulRequest {
    * @param entryId - contentful entry id
    * @returns {ContentfulRequest}
    */
-  getEntry(entryId: string): ContentfulRequest {
+  public getEntry(entryId: string): ContentfulRequest {
     this.requestUrl = `/entries/${entryId}`;
     return this;
   }
@@ -79,7 +79,7 @@ export class ContentfulRequest {
    * @param slug
    * @returns {ContentfulRequest}
    */
-  getEntryBySlug(type: string, slug: string): ContentfulRequest {
+  public getEntryBySlug(type: string, slug: string): ContentfulRequest {
     this.queryParams.set('content_type', type);
     this.queryParams.set('fields.slug', slug);
     this.requestUrl = '/entries/';
@@ -93,7 +93,7 @@ export class ContentfulRequest {
    * @param searchItems
    * @returns {ContentfulRequest}
    */
-  searchEntries(type: string, ...searchItems: SearchItem[]): ContentfulRequest {
+  public searchEntries(type: string, ...searchItems: SearchItem[]): ContentfulRequest {
     this.queryParams.set(
       'content_type', type
     );
@@ -104,17 +104,17 @@ export class ContentfulRequest {
     return this;
   }
 
-  include(include: number): ContentfulRequest {
+  public include(include: number): ContentfulRequest {
     this.queryParams.set('include', include.toString());
     return this;
   }
 
-  limit(limit: number): ContentfulRequest {
+  public limit(limit: number): ContentfulRequest {
     this.queryParams.set('limit', limit.toString());
     return this;
   }
 
-  order(order: string): ContentfulRequest {
+  public order(order: string): ContentfulRequest {
     this.queryParams.set('order', order);
     return this;
   }
@@ -123,7 +123,7 @@ export class ContentfulRequest {
    * Call request to the contentful's API
    * @returns {Observable<Response>}
    */
-  commit(): Observable<Response> {
+  public commit(): Observable<Response> {
     let url = [
       'https://',
       Ng2ContentfulConfig.config.host || ContentfulRequest.HOST,
@@ -144,7 +144,7 @@ export class ContentfulRequest {
 
 @Injectable()
 export class ContentfulService {
-  constructor(private _http: Http) {
+  public constructor(private _http: Http) {
   }
 
   /**

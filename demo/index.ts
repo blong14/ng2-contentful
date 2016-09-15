@@ -12,7 +12,7 @@ const ENV_PROVIDERS: any[] = [];
 //   ENV_PROVIDERS.push(ELEMENT_PROBE_PROVIDERS);
 // }
 
-import { App } from './src/components/app.component';
+import { AppComponent } from './src/components/app.component';
 import { ContentTypesComponent } from './src/components/content-types/content-types.component';
 import { AssetsComponent } from './src/components/assets/assets.component';
 import { CredentialsComponent } from './src/components/credentials/credentials.component';
@@ -21,14 +21,13 @@ import { ContentfulService } from '../src/services/contentful.service';
 import { routing } from './router.config';
 import { CanSeeContentfulData } from './src/components/app.tools';
 
-
 @NgModule({
   declarations: [
     AssetsComponent,
     ContentTypesComponent,
     CredentialsComponent,
     EntriesComponent,
-    App
+    AppComponent
 
   ],
   imports: [
@@ -42,7 +41,7 @@ import { CanSeeContentfulData } from './src/components/app.tools';
     ContentfulService,
     CanSeeContentfulData
   ],
-  bootstrap: [App]
+  bootstrap: [AppComponent]
 })
 
 export class DemoModule {

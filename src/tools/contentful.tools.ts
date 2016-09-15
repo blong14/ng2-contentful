@@ -1,5 +1,4 @@
-import {ContentfulCommon, ContentfulIterableResponse} from '../ng-contentful-types';
-
+import { ContentfulCommon, ContentfulIterableResponse } from '../ng-contentful-types';
 
 export function transformResponse<T extends ContentfulCommon<any>>
 (response: ContentfulIterableResponse<ContentfulCommon<any>>): T[] {
@@ -30,18 +29,18 @@ export function transformResponse<T extends ContentfulCommon<any>>
     }
   }
 
-  function extendsObjectWithFields(value) {
+  function extendsObjectWithFields(value: any): void {
     if (value.hasOwnProperty('sys') && includes.hasOwnProperty(value.sys.id)) {
       value.fields = includes[value.sys.id].fields;
       value.sys = includes[value.sys.id].sys;
     }
   }
 
-  function extendsArrayWithFields(items: any[]) {
+  function extendsArrayWithFields(items: any[]): void {
     for (let item of items) {
       extendsObjectWithFields(item);
     }
   }
 
-  return <T[]> response.items;
+  return response.items as T[];
 }
