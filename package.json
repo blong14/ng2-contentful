@@ -1,6 +1,6 @@
 {
   "name": "ng2-contentful",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Contentful module for angular2",
   "scripts": {
     "install:typings": "./node_modules/.bin/typings install",
