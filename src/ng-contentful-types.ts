@@ -1,7 +1,3 @@
-/**
- *
- */
-
 export interface ContentfulSys {
   type: string;
   id: string;
@@ -53,16 +49,3 @@ export interface ContentfulCommon<T> {
   fields: T;
   sys: ContentfulSys;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-

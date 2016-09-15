@@ -1,11 +1,11 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router-deprecated';
-import {ContentTypesComponent} from '../content-types/content-types.component';
-import {IContentfulConfig, Ng2ContentfulConfig} from '../../../../src/ng2-contentful-config';
+/// <reference path="../app.d.ts" />
 
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ContentfulConfig, Ng2ContentfulConfig } from '../../../../src/ng2-contentful-config';
 
 @Component({
-  styles: [<string> require('./credentials.scss')],
+  styles: [require('./credentials.scss') as string],
   template: `
     <h2>Credentials</h2>
     <div class="form">
@@ -36,22 +36,23 @@ import {IContentfulConfig, Ng2ContentfulConfig} from '../../../../src/ng2-conten
   `
 })
 export class CredentialsComponent implements OnInit {
-  static RoutingName = 'Credentials';
-  private model: IContentfulConfig = {
+  private model: ContentfulConfig = {
     space: '', accessToken: ''
   };
 
-  constructor(private _router: Router) {
+  private router: Router;
 
+  public constructor(router: Router) {
+    this.router = router;
   }
 
-  ngOnInit(): any {
+  public ngOnInit(): void {
     if (Ng2ContentfulConfig.isConfigured) {
       this.model = Ng2ContentfulConfig.config;
     }
   }
 
-  saveConfig() {
+  public saveConfig(): void {
     if (!this.model || (!this.model.space.length || !this.model.accessToken.length)) {
       console.warn('credentials empty !');
       return;
@@ -63,6 +64,6 @@ export class CredentialsComponent implements OnInit {
       host: this.model.host
     };
 
-    this._router.navigate([ContentTypesComponent.RoutingName]);
+    this.router.navigate(['/content-types']);
   }
 }

@@ -1,23 +1,22 @@
-export interface IContentfulConfig {
+export interface ContentfulConfig {
   space: string;
   accessToken: string;
   secure?: boolean;
   host?: string;
 }
 
-
 export class Ng2ContentfulConfig {
-  private static _config: IContentfulConfig;
+  private static _config: ContentfulConfig;
 
-  static get isConfigured() {
-    return this._config != null;
+  public static get isConfigured(): boolean {
+    return this._config !== undefined;
   }
 
-  static get config() {
+  public static get config(): ContentfulConfig {
     return this._config;
   }
 
-  static set config(config: IContentfulConfig) {
+  public static set config(config: ContentfulConfig) {
     this._config = config;
   }
 }

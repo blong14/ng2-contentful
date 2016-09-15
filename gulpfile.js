@@ -12,6 +12,29 @@ gulp.task('clean', (done) => {
   fse.remove(config.distDir, done);
 });
 
+const gitignore = require('gitignore-to-glob')();
+gitignore.push();
+
+const paths = {
+  ts: gitignore.concat('**/*.ts')
+};
+
+// Code linting
+const tslint = require('gulp-tslint');
+
+gulp.task('tslint', () => {
+  paths.ts.push('!**/*.d.ts');
+
+  gulp.src(paths.ts)
+    .pipe(tslint())
+    .pipe(tslint.report('prose', {
+      emitError: true,
+      summarizeFailureOutput: true,
+      reportLimit: 50
+    }))
+  }
+);
+
 
 gulp.task('copy:package.json', () => {
   return gulp.src('./package.json')

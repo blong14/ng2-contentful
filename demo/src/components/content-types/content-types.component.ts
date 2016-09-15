@@ -1,14 +1,14 @@
 import 'rxjs/add/operator/map';
-import {Component, OnInit} from '@angular/core';
-import {CanActivate, ROUTER_DIRECTIVES} from '@angular/router-deprecated';
-import {CanSeeContentfulData} from '../app.tools';
-import {ContentfulIterableResponse, ContentfulCommon, ContentfulContentType} from '../../../../src/ng-contentful-types';
-import {ContentfulService} from '../../../../src/services/contentful.service';
-
+import { Component, OnInit } from '@angular/core';
+import {
+  ContentfulIterableResponse,
+  ContentfulCommon,
+  ContentfulContentType
+} from '../../../../src/ng-contentful-types';
+import { ContentfulService } from '../../../../src/services/contentful.service';
+import { Response } from '@angular/http';
 
 @Component({
-  providers: [ContentfulService],
-  directives: [...ROUTER_DIRECTIVES],
   template: `
     <h2>Content types</h2>
     <div class="error" *ngIf="error">
@@ -17,7 +17,7 @@ import {ContentfulService} from '../../../../src/services/contentful.service';
     <div>
       <ul>
         <li *ngFor="let contentType of contentTypes">
-          <a [routerLink]="['Entries', {contentType: contentType.sys.id }]">
+          <a [routerLink]="['/entries', contentType.sys.id ]">
             {{ contentType.name }}
           </a>
         </li>
@@ -25,27 +25,26 @@ import {ContentfulService} from '../../../../src/services/contentful.service';
     </div>
   `
 })
-@CanActivate(CanSeeContentfulData)
 export class ContentTypesComponent implements OnInit {
-  static RoutingName = 'ContentTypes';
-
-  //noinspection JSMismatchedCollectionQueryUpdate
+  // noinspection JSMismatchedCollectionQueryUpdate
   private contentTypes: ContentfulCommon<ContentfulContentType>[];
   private error: string;
+  private contentfulService: ContentfulService;
 
-  constructor(private _contentfulService: ContentfulService) {
+  public constructor(contentfulService: ContentfulService) {
+    this.contentfulService = contentfulService;
   }
 
-  ngOnInit(): any {
-    this._contentfulService
+  public ngOnInit(): void {
+    this.contentfulService
       .create()
       .getContentTypes()
       .commit()
       .subscribe(
-        response => {
-          this.contentTypes = (<ContentfulIterableResponse<ContentfulCommon<ContentfulContentType>>> response.json()).items;
+        (response: Response) => {
+          this.contentTypes = (response.json() as ContentfulIterableResponse<ContentfulCommon<ContentfulContentType>>).items;
         },
-        error => {
+        (error: Response) => {
           this.error = JSON.stringify(error.json());
         }
       );

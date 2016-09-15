@@ -1,9 +1,8 @@
-import {bootstrap} from '@angular/platform-browser-dynamic';
-import {provide, ComponentRef} from '@angular/core';
-import {HTTP_PROVIDERS} from '@angular/http';
-import {ROUTER_PROVIDERS} from '@angular/router-deprecated';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-
+import { HttpModule } from '@angular/http';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 const ENV_PROVIDERS: any[] = [];
 
@@ -13,17 +12,39 @@ const ENV_PROVIDERS: any[] = [];
 //   ENV_PROVIDERS.push(ELEMENT_PROBE_PROVIDERS);
 // }
 
-import {appInjector} from './src/app-injector';
-import {App} from './src/components/app.component';
+import { AppComponent } from './src/components/app.component';
+import { ContentTypesComponent } from './src/components/content-types/content-types.component';
+import { AssetsComponent } from './src/components/assets/assets.component';
+import { CredentialsComponent } from './src/components/credentials/credentials.component';
+import { EntriesComponent } from './src/components/entries/entries.component';
+import { ContentfulService } from '../src/services/contentful.service';
+import { routing } from './router.config';
+import { CanSeeContentfulData } from './src/components/app.tools';
 
-document.addEventListener('DOMContentLoaded', () => {
-  bootstrap(App, [
-    ...ENV_PROVIDERS,
-    ...HTTP_PROVIDERS,
-    ...ROUTER_PROVIDERS,
-    provide(LocationStrategy, { useClass: HashLocationStrategy })
-  ]).then((appRef: ComponentRef<any> ) => {
-    appInjector(appRef.injector);
-  })
-    .catch(err => console.error(err));
-});
+@NgModule({
+  declarations: [
+    AssetsComponent,
+    ContentTypesComponent,
+    CredentialsComponent,
+    EntriesComponent,
+    AppComponent
+
+  ],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    routing
+  ],
+  providers: [
+    ENV_PROVIDERS,
+    ContentfulService,
+    CanSeeContentfulData
+  ],
+  bootstrap: [AppComponent]
+})
+
+export class DemoModule {
+}
+
+platformBrowserDynamic().bootstrapModule(DemoModule);

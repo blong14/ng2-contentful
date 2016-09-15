@@ -1,11 +1,10 @@
-import {Component, OnInit} from '@angular/core';
-import {CanActivate, RouteParams} from '@angular/router-deprecated';
-import {CanSeeContentfulData} from '../app.tools';
-import {ContentfulIterableResponse, ContentfulCommon} from '../../../../src/ng-contentful-types';
-import {ContentfulService} from '../../../../src/services/contentful.service';
+import { Component, OnInit } from '@angular/core';
+import { Response } from '@angular/http';
+import { ContentfulIterableResponse, ContentfulCommon } from '../../../../src/ng-contentful-types';
+import { ContentfulService } from '../../../../src/services/contentful.service';
+import { Router } from '@angular/router';
 
 @Component({
-  providers: [ContentfulService],
   template: `
     <h2>Entries</h2>
     <div class="error" *ngIf="error">
@@ -20,25 +19,27 @@ import {ContentfulService} from '../../../../src/services/contentful.service';
     </div>
   `
 })
-@CanActivate(CanSeeContentfulData)
 export class EntriesComponent implements OnInit {
-  static RoutingName = 'Entries';
 
   private entries: ContentfulCommon<any>[];
 
-  constructor(private _contentfulService: ContentfulService,
-              private _routeParams: RouteParams) {
+  private router: Router;
+  private contentfulService: ContentfulService;
+
+  public constructor(router: Router, contentfulService: ContentfulService) {
+    this.router = router;
+    this.contentfulService = contentfulService;
   }
 
-  ngOnInit(): any {
-    let contentType = this._routeParams.get('contentType');
-    this._contentfulService
+  public ngOnInit(): any {
+    const contentType = this.router.url.split('/').pop();
+    this.contentfulService
       .create()
       .getEntriesByType(contentType)
       .commit()
       .subscribe(
-        response => {
-          this.entries = (<ContentfulIterableResponse<ContentfulCommon<any>>> response.json()).items;
+        (response: Response) => {
+          this.entries = (response.json() as ContentfulIterableResponse<ContentfulCommon<any>>).items;
           console.log(this.entries);
         }
       );

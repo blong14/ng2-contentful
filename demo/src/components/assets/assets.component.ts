@@ -1,12 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {CanSeeContentfulData} from '../app.tools';
-import {CanActivate} from '@angular/router-deprecated';
-import {ContentfulCommon, ContentfulAsset} from '../../../../src/ng-contentful-types';
-import {ContentfulService} from '../../../../src/services/contentful.service';
-
+import { Component, OnInit } from '@angular/core';
+import { ContentfulCommon, ContentfulAsset } from '../../../../src/ng-contentful-types';
+import { ContentfulService } from '../../../../src/services/contentful.service';
+import { Response } from '@angular/http';
 
 @Component({
-  providers: [ContentfulService],
   template: `
     <h2>Assets</h2>
     <div class="error" *ngIf="error">
@@ -14,7 +11,7 @@ import {ContentfulService} from '../../../../src/services/contentful.service';
     </div>
     <div>
       <ul>
-        <li *ngFor="#asset of assets">
+        <li *ngFor="let asset of assets">
           <a href="{{ asset.fields.file.url }}">
             {{ asset.fields.title }}
           </a>
@@ -23,25 +20,26 @@ import {ContentfulService} from '../../../../src/services/contentful.service';
     </div>
   `
 })
-@CanActivate(CanSeeContentfulData)
 export class AssetsComponent implements OnInit {
-  static RoutingName = 'Assets';
+  public static RoutingName: string = 'Assets';
 
   private assets: ContentfulCommon<ContentfulAsset>[];
   private error: string;
+  private contentfulService: ContentfulService;
 
-  constructor(private _contentfulService: ContentfulService) {
+  public constructor(contentfulService: ContentfulService) {
+    this.contentfulService = contentfulService;
   }
 
-  ngOnInit(): any {
-    this._contentfulService.create()
+  public ngOnInit(): void {
+    this.contentfulService.create()
       .getAssets()
       .commit()
       .subscribe(
-        response => {
-          this.assets = <ContentfulCommon<ContentfulAsset>[]> response.json().items;
+        (response: Response) => {
+          this.assets = response.json().items as ContentfulCommon<ContentfulAsset>[];
         },
-        error => {
+        (error: Response) => {
           this.error = JSON.stringify(error.json());
         }
       );
