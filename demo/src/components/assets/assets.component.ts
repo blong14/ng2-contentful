@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ContentfulCommon, ContentfulAsset } from '../../../../src/ng-contentful-types';
-import { ContentfulService } from '../../../../src/services/contentful.service';
-import { Response } from '@angular/http';
+import { ContentfulService } from '../../../../index';
+import { Router } from '@angular/router';
+
 
 @Component({
   template: `
@@ -12,7 +12,7 @@ import { Response } from '@angular/http';
     <div>
       <ul>
         <li *ngFor="let asset of assets">
-          <a href="{{ asset.fields.file.url }}">
+          <a *ngIf="asset?.fields?.file?.url" href="{{ asset.fields.file.url }}">
             {{ asset.fields.title }}
           </a>
         </li>
@@ -21,27 +21,29 @@ import { Response } from '@angular/http';
   `
 })
 export class AssetsComponent implements OnInit {
-  public static RoutingName: string = 'Assets';
+  private assets: any[];
 
-  private assets: ContentfulCommon<ContentfulAsset>[];
   private error: string;
-  private contentfulService: ContentfulService;
 
-  public constructor(contentfulService: ContentfulService) {
+  private contentfulService: ContentfulService;
+  private router: Router;
+
+  public constructor(contentfulService: ContentfulService, router: Router) {
     this.contentfulService = contentfulService;
+    this.router = router;
   }
 
   public ngOnInit(): void {
-    this.contentfulService.create()
-      .getAssets()
-      .commit()
-      .subscribe(
-        (response: Response) => {
-          this.assets = response.json().items as ContentfulCommon<ContentfulAsset>[];
-        },
-        (error: Response) => {
-          this.error = JSON.stringify(error.json());
-        }
-      );
+    if(this.contentfulService.isServiceConfigured()){
+      this.contentfulService
+        .create()
+        .getAssets()
+        .commit()
+        .subscribe((value)=>{
+          this.assets = value.items;
+        });
+    } else {
+      this.router.navigateByUrl('');
+    }
   }
 }

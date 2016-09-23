@@ -31,3 +31,27 @@ build/Release
 node_modules
 
 # Created by .ignore support plugin (hsz.mobi)
+
+build
+
+# ts generated
+demo/**/*.js
+demo/**/*.js.map
+
+#ts typings
+typings
+
+# ignore incline compiling
+/demo/**/*.css
+/demo/**/*.js
+!/demo/constants.js
+/demo/**/*.js.map
+/demo/**/*.d.ts
+/src/**/*.css
+/src/**/*.js
+/src/**/*.js.map
+/src/**/*.d.ts
+index.js
+index.d.ts
+index.js.map
+/logs

@@ -1,4 +1,4 @@
-import { ContentfulCommon, ContentfulIterableResponse } from '../ng-contentful-types';
+import { ContentfulCommon, ContentfulIterableResponse } from '../contentful-types';
 
 export function transformResponse<T extends ContentfulCommon<any>>
 (response: ContentfulIterableResponse<ContentfulCommon<any>>): T[] {
