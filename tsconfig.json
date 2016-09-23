@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "es5",
     "module": "commonjs",
     "moduleResolution": "node",
     "sourceMap": true,
@@ -8,13 +8,17 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "outDir": "dist/ng2-contentful"
+    "declaration": true,
+    "skipLibCheck": true,
+    "stripInternal": true,
+    "lib": [
+      "dom", "es6"
+    ],
+    "types": [
+      "node"
+    ]
   },
-  "exclude": [
-    "node_modules"
-  ],
   "files": [
-    "./typings/index.d.ts",
-    "./src/index.ts"
+    "./index.ts"
   ]
 }

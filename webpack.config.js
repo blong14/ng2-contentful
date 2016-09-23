@@ -41,7 +41,7 @@ var config = {
       '@angular/core',
       '@angular/router'
     ],
-    'angular2-contentful': 'src',
+    'angular2-contentful': 'index.ts',
     'angular2-contentful-demo': 'demo'
   },
 
@@ -69,8 +69,6 @@ var config = {
       {test: /\.json$/, loader: 'json'},
       // Support for CSS as raw text
       {test: /\.css$/, loader: 'raw'},
-      // loads string into component's style
-      {test: /\.scss$/, loaders: ["raw", "sass"]},
       // support for .html as raw text
       {test: /\.html$/, loader: 'raw'},
       // Support for .ts files.

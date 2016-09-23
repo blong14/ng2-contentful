@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Response } from '@angular/http';
-import { ContentfulIterableResponse, ContentfulCommon } from '../../../../src/ng-contentful-types';
-import { ContentfulService } from '../../../../src/services/contentful.service';
+import { ContentfulService, ContentfulCommon } from '../../../../index';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,10 +18,10 @@ import { Router } from '@angular/router';
   `
 })
 export class EntriesComponent implements OnInit {
-
   private entries: ContentfulCommon<any>[];
 
   private router: Router;
+
   private contentfulService: ContentfulService;
 
   public constructor(router: Router, contentfulService: ContentfulService) {
@@ -32,16 +30,18 @@ export class EntriesComponent implements OnInit {
   }
 
   public ngOnInit(): any {
-    const contentType = this.router.url.split('/').pop();
-    this.contentfulService
-      .create()
-      .getEntriesByType(contentType)
-      .commit()
-      .subscribe(
-        (response: Response) => {
-          this.entries = (response.json() as ContentfulIterableResponse<ContentfulCommon<any>>).items;
-          console.log(this.entries);
-        }
-      );
+    if (this.contentfulService.isServiceConfigured()) {
+      const contentType = this.router.url.split('/').pop();
+
+      this.contentfulService
+        .create()
+        .getEntriesByType(contentType)
+        .commit()
+        .subscribe((value)=> {
+          this.entries = value.items;
+        });
+    } else {
+      this.router.navigateByUrl('');
+    }
   }
 }

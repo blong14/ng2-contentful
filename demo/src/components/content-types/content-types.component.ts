@@ -1,12 +1,8 @@
 import 'rxjs/add/operator/map';
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import {
-  ContentfulIterableResponse,
-  ContentfulCommon,
-  ContentfulContentType
-} from '../../../../src/ng-contentful-types';
-import { ContentfulService } from '../../../../src/services/contentful.service';
-import { Response } from '@angular/http';
+import { ContentfulCommon, ContentfulContentType } from '../../../../src/contentful-types';
+import { ContentfulService } from '../../../../index';
 
 @Component({
   template: `
@@ -26,27 +22,29 @@ import { Response } from '@angular/http';
   `
 })
 export class ContentTypesComponent implements OnInit {
-  // noinspection JSMismatchedCollectionQueryUpdate
   private contentTypes: ContentfulCommon<ContentfulContentType>[];
-  private error: string;
-  private contentfulService: ContentfulService;
 
-  public constructor(contentfulService: ContentfulService) {
+  private error: string;
+
+  private contentfulService: ContentfulService;
+  private router: Router;
+
+  public constructor(contentfulService: ContentfulService, router: Router) {
     this.contentfulService = contentfulService;
+    this.router = router;
   }
 
   public ngOnInit(): void {
-    this.contentfulService
-      .create()
-      .getContentTypes()
-      .commit()
-      .subscribe(
-        (response: Response) => {
-          this.contentTypes = (response.json() as ContentfulIterableResponse<ContentfulCommon<ContentfulContentType>>).items;
-        },
-        (error: Response) => {
-          this.error = JSON.stringify(error.json());
-        }
-      );
+    if(this.contentfulService.isServiceConfigured()){
+      this.contentfulService
+        .create()
+        .getContentTypes()
+        .commit()
+        .subscribe((value)=>{
+            this.contentTypes = value.items;
+        });
+    } else {
+      this.router.navigateByUrl('');
+    }
   }
 }
