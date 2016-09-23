@@ -1,6 +1,6 @@
 {
   "name": "ng2-contentful",
-  "version": "0.1.1",
+  "version": "0.5.0",
   "description": "Contentful module for angular2",
   "scripts": {
     "serve:dev": "./node_modules/.bin/webpack-dev-server --hot --inline --colors --display-error-details --display-cached",
