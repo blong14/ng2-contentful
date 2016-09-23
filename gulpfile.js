@@ -35,7 +35,6 @@ gulp.task('tslint', () => {
   }
 );
 
-
 gulp.task('copy:package.json', () => {
   return gulp.src('./package.json')
     // remove dev dependencies
