@@ -1,12 +1,11 @@
 {
   "name": "ng2-contentful",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Contentful module for angular2",
   "scripts": {
     "serve:dev": "./node_modules/.bin/webpack-dev-server --hot --inline --colors --display-error-details --display-cached",
     "start": "npm run serve:dev",
     "compile": "./node_modules/.bin/tsc",
-    "postinstall": "./node_modules/.bin/typings install",
     "prepublish": "npm run clean && npm run compile",
     "test": "./node_modules/.bin/karma start --log-level=DEBUG",
     "tslint": "./node_modules/.bin/gulp tslint",
